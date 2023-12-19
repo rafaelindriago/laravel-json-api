@@ -4,8 +4,9 @@ declare(strict_types=1);
 
 namespace App\Exceptions;
 
+use App\Exceptions\Api\ResourceValidationException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
-use Throwable;
+use Illuminate\Validation\ValidationException;
 
 class Handler extends ExceptionHandler
 {
@@ -25,6 +26,10 @@ class Handler extends ExceptionHandler
      */
     public function register(): void
     {
-        $this->reportable(function (Throwable $e): void {});
+        $this->renderable(function (ValidationException $validationException): void {
+            $resourceValidationException = new ResourceValidationException($validationException->validator);
+
+            throw $resourceValidationException;
+        });
     }
 }
