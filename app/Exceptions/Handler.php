@@ -7,6 +7,7 @@ namespace App\Exceptions;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Validation\ValidationException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class Handler extends ExceptionHandler
@@ -36,6 +37,24 @@ class Handler extends ExceptionHandler
                 ];
 
                 return new JsonResponse($data, 404);
+            }
+        });
+
+        $this->renderable(function (ValidationException $validationException, Request $request): ?JsonResponse {
+            if ($request->is('api/*')) {
+                foreach ($validationException->errors() as $attribute => $errors) {
+                    $data['errors'][] = [
+                        'status'    => '422',
+                        'title'     => 'Unprocessable Content',
+                        'detail'    => current($errors),
+
+                        'source' => [
+                            'pointer'   => str_replace('.', '/', $attribute),
+                        ],
+                    ];
+                }
+
+                return new JsonResponse($data, 422);
             }
         });
     }
