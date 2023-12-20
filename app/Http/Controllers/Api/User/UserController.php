@@ -7,7 +7,7 @@ namespace App\Http\Controllers\Api\User;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Api\User\StoreUserRequest;
 use App\Http\Requests\Api\User\UpdateUserRequest;
-use App\Http\Resources\User\UserResource;
+use App\Http\Resources\User\ShowUserResource;
 use App\Http\Resources\User\UserResourceCollection;
 use App\Models\User;
 use Illuminate\Http\Resources\Json\JsonResource;
@@ -51,7 +51,7 @@ class UserController extends Controller
 
         $user->save();
 
-        return new UserResource($user);
+        return new ShowUserResource($user);
     }
 
     /**
@@ -59,7 +59,7 @@ class UserController extends Controller
      */
     public function show(User $user): JsonResource
     {
-        return new UserResource($user);
+        return new ShowUserResource($user);
     }
 
     /**
@@ -73,7 +73,7 @@ class UserController extends Controller
 
         $user->save();
 
-        return new UserResource($user);
+        return new ShowUserResource($user);
     }
 
     /**

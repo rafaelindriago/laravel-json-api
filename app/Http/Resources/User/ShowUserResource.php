@@ -8,7 +8,7 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 use Illuminate\Support\Facades\URL;
 
-class UserResource extends JsonResource
+class ShowUserResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -18,17 +18,19 @@ class UserResource extends JsonResource
     public function toArray(Request $request): array
     {
         return [
-            'type'  => 'users',
-            'id'    => (string) $this->id,
+            'data' => [
+                'type'  => 'users',
+                'id'    => (string) $this->resource->id,
 
-            'attributes' => [
-                'name'  => $this->whenHas('name', $this->name),
-                'email' => $this->whenHas('email', $this->email),
-                'type'  => $this->whenHas('type', $this->type),
-            ],
+                'attributes' => [
+                    'name'  => $this->whenHas('name', $this->resource->name),
+                    'email' => $this->whenHas('email', $this->resource->email),
+                    'type'  => $this->whenHas('type', $this->resource->type),
+                ],
 
-            'relationships' => [
+                'relationships' => [
 
+                ],
             ],
 
             'links' => [
