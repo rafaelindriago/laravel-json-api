@@ -49,7 +49,7 @@ class Handler extends ExceptionHandler
                         'detail'    => current($errors),
 
                         'source' => [
-                            'pointer'   => str_replace('.', '/', $attribute),
+                            'pointer'   => '/' . str_replace('.', '/', $attribute),
                         ],
                     ];
                 }
