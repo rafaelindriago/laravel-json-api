@@ -20,12 +20,12 @@ class ShowUserResource extends JsonResource
         return [
             'data' => [
                 'type'  => 'users',
-                'id'    => (string) $this->resource->id,
+                'id'    => (string) $this->id,
 
                 'attributes' => [
-                    'name'  => $this->whenHas('name', $this->resource->name),
-                    'email' => $this->whenHas('email', $this->resource->email),
-                    'type'  => $this->whenHas('type', $this->resource->type),
+                    'name'  => $this->whenHas('name', $this->name),
+                    'email' => $this->whenHas('email', $this->email),
+                    'type'  => $this->whenHas('type', $this->type),
                 ],
 
                 'relationships' => [
