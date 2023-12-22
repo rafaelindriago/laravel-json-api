@@ -28,7 +28,12 @@ class UserResource extends JsonResource
             ],
 
             'relationships' => [
-
+                'posts' => $this->whenLoaded('posts', fn() => [
+                    'data' => $this->posts->map(fn($post) => [
+                        'type'  => 'posts',
+                        'id'    => (string) $post->id,
+                    ]),
+                ]),
             ],
 
             'links' => [

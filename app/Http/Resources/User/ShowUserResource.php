@@ -29,7 +29,12 @@ class ShowUserResource extends JsonResource
                 ],
 
                 'relationships' => [
-
+                    'posts' => $this->whenLoaded('posts', fn() => [
+                        'data' => $this->posts->map(fn($post) => [
+                            'type'  => 'posts',
+                            'id'    => (string) $post->id,
+                        ]),
+                    ]),
                 ],
             ],
 
