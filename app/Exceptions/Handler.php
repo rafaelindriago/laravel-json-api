@@ -28,7 +28,7 @@ class Handler extends ExceptionHandler
      */
     public function register(): void
     {
-        $this->renderable(function (NotFoundHttpException $notFoundHttpException, Request $request): ?JsonResponse {
+        $this->renderable(function (NotFoundHttpException $notFoundHttpException, Request $request) {
             if ($request->is('api/*')) {
                 $data['errors'][] = [
                     'status'    => '404',
@@ -40,7 +40,7 @@ class Handler extends ExceptionHandler
             }
         });
 
-        $this->renderable(function (ValidationException $validationException, Request $request): ?JsonResponse {
+        $this->renderable(function (ValidationException $validationException, Request $request) {
             if ($request->is('api/*')) {
                 foreach ($validationException->errors() as $attribute => $errors) {
                     $data['errors'][] = [
