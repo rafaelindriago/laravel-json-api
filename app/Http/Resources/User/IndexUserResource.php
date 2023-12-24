@@ -8,7 +8,7 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 use Illuminate\Support\Facades\URL;
 
-class UserResource extends JsonResource
+class IndexUserResource extends JsonResource
 {
     /**
      * Transform the resource into an array.

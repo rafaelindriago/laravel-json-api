@@ -7,8 +7,8 @@ namespace App\Http\Controllers\Api\User;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Api\User\StoreUserRequest;
 use App\Http\Requests\Api\User\UpdateUserRequest;
+use App\Http\Resources\User\IndexUserResourceCollection;
 use App\Http\Resources\User\ShowUserResource;
-use App\Http\Resources\User\UserResourceCollection;
 use App\Models\User;
 use Illuminate\Http\Resources\Json\JsonResource;
 use Illuminate\Http\Resources\Json\ResourceCollection;
@@ -35,7 +35,7 @@ class UserController extends Controller
         $users = User::query()
             ->paginate();
 
-        return new UserResourceCollection($users);
+        return new IndexUserResourceCollection($users);
     }
 
     /**

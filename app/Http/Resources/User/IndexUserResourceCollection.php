@@ -8,8 +8,15 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\ResourceCollection;
 use Illuminate\Support\Facades\URL;
 
-class UserResourceCollection extends ResourceCollection
+class IndexUserResourceCollection extends ResourceCollection
 {
+    /**
+     * The resource that this resource collects.
+     *
+     * @var string
+     */
+    public $collects = IndexUserResource::class;
+
     /**
      * Transform the resource collection into an array.
      *
