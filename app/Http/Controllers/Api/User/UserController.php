@@ -25,7 +25,6 @@ class UserController extends Controller
         $this->authorizeResource(User::class);
 
         $this->middleware('resource.type:users');
-        $this->middleware('resource.id:user');
     }
 
     /**

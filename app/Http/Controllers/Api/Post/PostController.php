@@ -23,7 +23,6 @@ class PostController extends Controller
         $this->authorizeResource(Post::class);
 
         $this->middleware('resource.type:posts');
-        $this->middleware('resource.id:post');
     }
 
     /**
