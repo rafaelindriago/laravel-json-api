@@ -7,9 +7,8 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Database\Eloquent\Relations\HasMany;
 
-class Post extends Model
+class Comment extends Model
 {
     use HasFactory;
 
@@ -19,7 +18,6 @@ class Post extends Model
      * @var array<int, string>
      */
     protected $fillable = [
-        'title',
         'content',
     ];
 
@@ -29,8 +27,16 @@ class Post extends Model
      * @var array<string, string>
      */
     protected $casts = [
-        'published_at'  => 'datetime',
+        'hidden_at' => 'datetime',
     ];
+
+    /**
+     * Get the model's post.
+     */
+    public function post(): BelongsTo
+    {
+        return $this->belongsTo(Post::class);
+    }
 
     /**
      * Get the model's writer.
@@ -38,13 +44,5 @@ class Post extends Model
     public function writer(): BelongsTo
     {
         return $this->belongsTo(User::class, 'writer_id');
-    }
-
-    /**
-     * Get the model's comments.
-     */
-    public function comments(): HasMany
-    {
-        return $this->hasMany(Comment::class);
     }
 }
