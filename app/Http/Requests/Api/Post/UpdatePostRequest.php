@@ -17,6 +17,11 @@ class UpdatePostRequest extends FormRequest
     public function rules(): array
     {
         return [
+            'data.id' => [
+                'required', 'string',
+                Rule::exists('posts', 'id'),
+            ],
+
             'data.attributes.title' => [
                 'nullable', 'string', 'max:200',
             ],
@@ -39,6 +44,8 @@ class UpdatePostRequest extends FormRequest
     public function attributes(): array
     {
         return [
+            'data.id'   => 'id',
+
             'data.attributes.title'     => 'title',
             'data.attributes.content'   => 'content',
 

@@ -17,6 +17,11 @@ class UpdateUserRequest extends FormRequest
     public function rules(): array
     {
         return [
+            'data.id' => [
+                'required', 'string',
+                Rule::exists('users', 'id'),
+            ],
+
             'data.attributes.name' => [
                 'nullable', 'string', 'max:100',
             ],
@@ -40,6 +45,8 @@ class UpdateUserRequest extends FormRequest
     public function attributes(): array
     {
         return [
+            'data.id'   => 'id',
+
             'data.attributes.name'  => 'name',
             'data.attributes.email' => 'email',
             'data.attributes.tyoe'  => 'type',
