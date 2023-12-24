@@ -10,7 +10,6 @@ use App\Http\Requests\Api\Post\UpdatePostRequest;
 use App\Http\Resources\Post\PostResourceCollection;
 use App\Http\Resources\Post\ShowPostResource;
 use App\Models\Post;
-use App\Models\User;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class PostController extends Controller
@@ -23,6 +22,8 @@ class PostController extends Controller
         $this->authorizeResource(Post::class);
 
         $this->middleware('resource.type:posts');
+
+        $this->middleware('relationship.type:writer,users');
     }
 
     /**
@@ -49,13 +50,12 @@ class PostController extends Controller
 
         $relationships = $request->input('data.relationships');
 
-        $user = User::query()
-            ->findOrFail($relationships['writer']['data']['id']);
-
         $post->writer()
-            ->associate($user);
+            ->associate($relationships['writer']['data']['id']);
 
         $post->save();
+
+        $post->load('writer');
 
         return new ShowPostResource($post);
     }
@@ -82,14 +82,13 @@ class PostController extends Controller
         $relationships = $request->input('data.relationships');
 
         if (isset($relationships['writer']['data']['id'])) {
-            $user = User::query()
-                ->findOrFail($relationships['writer']['data']['id']);
-
             $post->writer()
-                ->associate($user);
+                ->associate($relationships['writer']['data']['id']);
         }
 
         $post->save();
+
+        $post->load('writer');
 
         return new ShowPostResource($post);
     }
