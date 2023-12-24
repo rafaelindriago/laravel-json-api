@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Http\Requests\Api\Post;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class StorePostRequest extends FormRequest
 {
@@ -22,6 +23,11 @@ class StorePostRequest extends FormRequest
             'data.attributes.content' => [
                 'required', 'string', 'max:2000',
             ],
+
+            'data.relationships.writer.data.id' => [
+                'required', 'string',
+                Rule::exists('users', 'id'),
+            ],
         ];
     }
 
@@ -35,6 +41,8 @@ class StorePostRequest extends FormRequest
         return [
             'data.attributes.title'     => 'title',
             'data.attributes.content'   => 'content',
+
+            'data.relationships.writer.data.id' => 'writer',
         ];
     }
 }

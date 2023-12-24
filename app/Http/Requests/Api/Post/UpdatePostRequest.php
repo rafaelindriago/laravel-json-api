@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Http\Requests\Api\Post;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class UpdatePostRequest extends FormRequest
 {
@@ -22,6 +23,11 @@ class UpdatePostRequest extends FormRequest
             'data.attributes.content' => [
                 'nullable', 'string', 'max:2000',
             ],
+
+            'data.relationships.writer.data.id' => [
+                'nullable', 'string',
+                Rule::exists('users', 'id'),
+            ],
         ];
     }
 
@@ -35,6 +41,8 @@ class UpdatePostRequest extends FormRequest
         return [
             'data.attributes.title'     => 'title',
             'data.attributes.content'   => 'content',
+
+            'data.relationships.writer.data.id' => 'writer',
         ];
     }
 }
