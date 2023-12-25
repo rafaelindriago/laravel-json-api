@@ -16,18 +16,6 @@ class PostResourceTest extends TestCase
      */
     public function test_store_resource(): void
     {
-        $user = new User();
-
-        $user->fill([
-            'name'  => 'Rafael Indriago',
-            'email' => 'rafael.indriago93@gmail.com',
-            'type'  => 'writer',
-        ]);
-
-        $user->password = Str::random();
-
-        $user->save();
-
         $data = [
             'data' => [
                 'type'  => 'posts',
@@ -51,6 +39,18 @@ class PostResourceTest extends TestCase
             'Content-Type'  => 'application/json',
             'Accept'        => 'application/json',
         ];
+
+        $user = new User();
+
+        $user->fill([
+            'name'  => 'Rafael Indriago',
+            'email' => 'rafael.indriago93@gmail.com',
+            'type'  => 'writer',
+        ]);
+
+        $user->password = Str::random();
+
+        $user->save();
 
         $response = $this->json('POST', 'api/posts', $data, $headers);
 
@@ -179,7 +179,7 @@ class PostResourceTest extends TestCase
     }
 
     /**
-     * Test if the resource cen be destroyed.
+     * Test if the resource can be destroyed.
      */
     public function test_destroy_resource(): void
     {
