@@ -119,7 +119,7 @@ class UserResourceTest extends TestCase
     }
 
     /**
-     * Test if the resource cen be destroyed.
+     * Test if the resource can be destroyed.
      */
     public function test_destroy_resource(): void
     {
