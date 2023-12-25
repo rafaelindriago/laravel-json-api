@@ -37,25 +37,25 @@ class ValidateRelationshipType
 
                         return new JsonResponse($data, 409);
                     }
-                }
-            } else {
-                foreach ($relationshipData as $key => $relatedData) {
-                    if (isset($relatedData['type']) && $relatedData['type'] !== $type) {
+                } else {
+                    foreach ($relationshipData as $key => $relatedData) {
+                        if (isset($relatedData['type']) && $relatedData['type'] !== $type) {
 
-                        $data['errors'][] = [
-                            'status'    => '409',
-                            'title'     => 'Conflict',
-                            'detail'    => "The expected resource type is {$type}.",
+                            $data['errors'][] = [
+                                'status'    => '409',
+                                'title'     => 'Conflict',
+                                'detail'    => "The expected resource type is {$type}.",
 
-                            'source' => [
-                                'pointer'   => "/data/relationships/{$relationship}/data/{$key}/type",
-                            ],
-                        ];
+                                'source' => [
+                                    'pointer'   => "/data/relationships/{$relationship}/data/{$key}/type",
+                                ],
+                            ];
+                        }
                     }
-                }
 
-                if (isset($data['errors'])) {
-                    return new JsonResponse($data, 409);
+                    if (isset($data['errors'])) {
+                        return new JsonResponse($data, 409);
+                    }
                 }
             }
         }
