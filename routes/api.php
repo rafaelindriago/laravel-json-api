@@ -2,7 +2,6 @@
 
 declare(strict_types=1);
 
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -16,10 +15,11 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', fn(Request $request) => $request->user());
+Route::name('users.')
+    ->group(__DIR__ . '\resources\users.php');
 
-Route::apiResource('users', \App\Http\Controllers\Api\User\UserController::class);
+Route::name('posts.')
+    ->group(__DIR__ . '\resources\posts.php');
 
-Route::apiResource('posts', \App\Http\Controllers\Api\Post\PostController::class);
-
-Route::apiResource('comments', \App\Http\Controllers\Api\Comment\CommentController::class);
+Route::name('comments.')
+    ->group(__DIR__ . '\resources\comments.php');
