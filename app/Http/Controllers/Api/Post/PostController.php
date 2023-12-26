@@ -49,10 +49,10 @@ class PostController extends Controller
 
         $post->fill($attributes);
 
-        $relationships = $request->input('data.relationships');
+        $user = $request->input('data.relationships.writer.data.id');
 
         $post->writer()
-            ->associate($relationships['writer']['data']['id']);
+            ->associate($user);
 
         $post->save();
 
@@ -80,11 +80,11 @@ class PostController extends Controller
 
         $post->fill($attributes);
 
-        $relationships = $request->input('data.relationships');
+        $user = $request->input('data.relationships.writer.data.id');
 
-        if (isset($relationships['writer']['data']['id'])) {
+        if ($user) {
             $post->writer()
-                ->associate($relationships['writer']['data']['id']);
+                ->associate($user);
         }
 
         $post->save();
