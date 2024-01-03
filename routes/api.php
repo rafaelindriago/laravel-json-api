@@ -18,6 +18,9 @@ use Illuminate\Support\Facades\Route;
 Route::name('users.')
     ->group(__DIR__ . '\resources\users.php');
 
+Route::name('tags.')
+    ->group(__DIR__ . '\resources\tags.php');
+
 Route::name('posts.')
     ->group(__DIR__ . '\resources\posts.php');
 

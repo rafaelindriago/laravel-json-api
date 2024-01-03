@@ -13,6 +13,9 @@
         <testsuite name="Comment">
             <directory>tests/Feature/Comment</directory>
         </testsuite>
+        <testsuite name="Tag">
+            <directory>tests/Feature/Tag</directory>
+        </testsuite>
     </testsuites>
     <source>
         <include>
